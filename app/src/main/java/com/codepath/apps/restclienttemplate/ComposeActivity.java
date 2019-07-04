@@ -68,9 +68,9 @@ public class ComposeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // first parameter is the context, second is the class of the activity to launch
-        Intent intent = new Intent(this, TimelineActivity.class);
-        startActivity(intent); // brings up the second activity
+        // finish() just brings you back to previous activity
+        // in this case, it would be the TimelineActivity
+        finish();
         return super.onOptionsItemSelected(item);
     }
 }
