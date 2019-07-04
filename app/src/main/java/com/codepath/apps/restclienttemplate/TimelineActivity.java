@@ -166,6 +166,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void launchComposeView() {
+
         // first parameter is the context, second is the class of the activity to launch
         Intent intent = new Intent(this, ComposeActivity.class);
         startActivityForResult(intent, REQUEST_CODE); // brings up the second activity

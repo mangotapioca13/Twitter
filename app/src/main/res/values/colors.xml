@@ -4,4 +4,5 @@
     <color name="timelineColour">#56B0D3</color>
     <color name="textColour">#000000</color>
     <color name="optTextColour">#AFCFF5</color>
+    <color name="btnTweetColour">#ff1370a9</color>
 </resources>

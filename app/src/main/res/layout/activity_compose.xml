@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:title="Compose your Tweet!"
-        app:titleTextColor="@android:color/white"
+        app:title=" "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,15 +21,16 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:counterEnabled="true"
         app:counterMaxLength="280"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <EditText
@@ -57,8 +57,16 @@
         android:background="@color/highlightColour"
         android:onClick="onSubmit"
         android:text="@string/tweetBtn"
-        android:textColor="@color/textColour"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilLayout" />
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@android:color/black" />
 
 </android.support.constraint.ConstraintLayout>
