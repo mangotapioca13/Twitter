@@ -3,6 +3,9 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -25,6 +28,13 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
 
         client = new TwitterClient(this);
+
+        // find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        // sets the Toolbar to act as the ActionBar for this activity window.
+        // make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
     }
 
     public void onSubmit(View v) {
@@ -46,5 +56,21 @@ public class ComposeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // methods to handle click on the Cancel menu item
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // inflate the menu; this adds items to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_compose, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // first parameter is the context, second is the class of the activity to launch
+        Intent intent = new Intent(this, TimelineActivity.class);
+        startActivity(intent); // brings up the second activity
+        return super.onOptionsItemSelected(item);
     }
 }

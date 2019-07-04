@@ -7,5 +7,6 @@
     <string name="intent_host">cprest</string>
 
     <string name="etHint">What is your rant today?</string>
+    <string name="tweetBtn">Tweet</string>
 
 </resources>
