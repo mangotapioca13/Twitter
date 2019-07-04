@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -15,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    private final int REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,24 @@ public class TimelineActivity extends AppCompatActivity {
     public void launchComposeView() {
         // first parameter is the context, second is the class of the activity to launch
         Intent intent = new Intent(this, ComposeActivity.class);
-        startActivity(intent); // brings up the second activity
+        startActivityForResult(intent, REQUEST_CODE); // brings up the second activity
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // check request code and result code first
+        if ((requestCode == REQUEST_CODE) && (resultCode == RESULT_OK)) {
+            // Use data parameter
+            Tweet tweet = (Tweet) Parcels.unwrap(data.getParcelableExtra("tweet"));
+
+            // add the tweet and update the screen to see it
+            tweets.add(0, tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
+
+            Toast.makeText(this, "Tweet added!", Toast.LENGTH_SHORT).show();
+        } else {
+            Log.d("Parceling", "FAILED");
+        }
     }
 }
