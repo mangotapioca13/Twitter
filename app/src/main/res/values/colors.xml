@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="highlightColour">#ADD8E6</color>
+    <color name="highlightColour">#56A0D3</color>
+    <color name="timelineColour">#56B0D3</color>
+    <color name="textColour">#2F2F2F</color>
 </resources>

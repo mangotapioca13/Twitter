@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:counterEnabled="true"
-        app:counterMaxLength="300"
+        app:counterMaxLength="280"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +41,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:background="@color/highlightColour"
-        android:text="Tweet"
         android:onClick="onSubmit"
+        android:text="Tweet"
+        android:textColor="@color/textColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilLayout" />
 
