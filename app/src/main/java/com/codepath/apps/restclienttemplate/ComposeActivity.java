@@ -8,7 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -17,10 +19,12 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ComposeActivity extends AppCompatActivity {
 
     private TwitterClient client;
+    private ImageView ivProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +35,19 @@ public class ComposeActivity extends AppCompatActivity {
 
         // find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        // sets the Toolbar to act as the ActionBar for this activity window.
-        // make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+
+        // create Intent to fetch the url that was passed here
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("profileImageUrl");
+
+        // fetch views so that Glide can attach the image
+        ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+
+        Glide.with(this)
+                .load(url)
+                .bitmapTransform(new RoundedCornersTransformation(this, 30, 0))
+                .into(ivProfileImage);
     }
 
     public void onSubmit(View v) {
