@@ -19,6 +19,8 @@ public class Tweet {
     public User user;
     public String createdAt;
     public String timeAgo;
+    public String heartCount;
+    public String retweetCount;
 
     public Tweet() { }
 
@@ -32,6 +34,8 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         tweet.timeAgo = Tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
+        tweet.heartCount = Integer.toString(jsonObject.getInt("favorite_count"));
+        tweet.retweetCount = Integer.toString(jsonObject.getInt("retweet_count"));
 
         // Log.i("time", tweet.timeAgo);
         return tweet;
