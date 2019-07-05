@@ -34,6 +34,10 @@ public class TimelineActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 100;
     private SwipeRefreshLayout swipeContainer;
 
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private long max_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +45,12 @@ public class TimelineActivity extends AppCompatActivity {
 
         // find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        // sets the Toolbar to act as the ActionBar for this activity window.
-        // make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+
+        // set max_id
+        max_id = -1;
 
         // instantiate the client
         client = TwitterApp.getRestClient(this);
@@ -63,7 +69,20 @@ public class TimelineActivity extends AppCompatActivity {
         tweetAdapter = new TweetAdapter(tweets);
 
         // RecyclerView setup (layout manager, use adapter
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        rvTweets.setLayoutManager(linearLayoutManager);
+
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+
+        // Adds the scroll listener to RecyclerView
+        rvTweets.addOnScrollListener(scrollListener);
 
         // set the adapter
         rvTweets.setAdapter(tweetAdapter);
@@ -92,6 +111,56 @@ public class TimelineActivity extends AppCompatActivity {
         populateTimeline();
     }
 
+    // Append the next page of data into the adapter
+    // This method probably sends out a network request and appends new data items to your adapter.
+    public void loadNextDataFromApi(int offset) {
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()
+        client.refreshTimeline(max_id, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                max_id = -1;
+                for(int i = 0; i < response.length(); i++) {
+                    // convert each object to a Tweet model
+                    // add that Tweet model to our data source
+                    // notify the adapter that we've added an item
+                    try {
+                        Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
+                        tweets.add(tweet);
+                        tweetAdapter.notifyItemInserted(tweets.size() - 1);
+
+                        if (tweet.uid < max_id || max_id == -1) {
+                            max_id = tweet.uid;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("TwitterClient", responseString);
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.d("TwitterClient", errorResponse.toString());
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("TwitterClient", errorResponse.toString());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
     public void fetchTimelineAsync(int page) {
         // Remember to CLEAR OUT old items before appending in the new ones
         tweetAdapter.clear();
@@ -101,7 +170,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         // Now we call setRefreshing(false) to signal refresh has finished
         swipeContainer.setRefreshing(false);
-
     }
 
     // put the onCreateOptionsMenu in the activity that houses where you would want to go next
@@ -140,6 +208,10 @@ public class TimelineActivity extends AppCompatActivity {
                         Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
                         tweets.add(tweet);
                         tweetAdapter.notifyItemInserted(tweets.size() - 1);
+
+                        if (tweet.uid < max_id || max_id == -1) {
+                            max_id = tweet.uid;
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

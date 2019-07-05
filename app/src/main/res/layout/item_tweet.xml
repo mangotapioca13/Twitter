@@ -32,24 +32,26 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ivProfileImage"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:autoLink="all"
         android:isScrollContainer="true"
+        android:linksClickable="true"
         android:scrollbars="vertical"
         android:text="TextView"
         android:textColor="@color/textColour"
-        android:autoLink="all"
-        android:linksClickable="true"
         android:textColorLink="@color/highlightColour"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeAgo" />
 
     <TextView
         android:id="@+id/tvTimeAgo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Time Ago"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/tvBody"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
     <TextView
         android:id="@+id/tvScreenName"

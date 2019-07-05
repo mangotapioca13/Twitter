@@ -57,26 +57,27 @@ public class Tweet {
             e.printStackTrace();
         }
 
-        return reformatTime(relativeDate);
+        return relativeDate;
+//        return reformatTime(relativeDate);
     }
 
-    // return the relativeDate as "#m" or "#h"
-    public static String reformatTime(String relativeDate) {
-        String reformatted = relativeDate.split(" ")[0];
-        String typeTime = relativeDate.split(" ")[1];
-
-        // check whether the time was in minutes or hours
-        if (typeTime.charAt(0) == 'm') {
-            reformatted += "m";
-        } else if (typeTime.charAt(0) == 's') {
-            reformatted += "s";
-        } else if (typeTime.charAt(0) == 'h') {
-            reformatted += "h";
-        } else {
-            reformatted = "0s";
-        }
-
-        // Log.i("new time", reformatted);
-        return reformatted;
-    }
+//    // return the relativeDate as "#m" or "#h"
+//    public static String reformatTime(String relativeDate) {
+//        String reformatted = relativeDate.split(" ")[0];
+//        String typeTime = relativeDate.split(" ")[1];
+//
+//        // check whether the time was in minutes or hours
+//        if (typeTime.charAt(0) == 'm') {
+//            reformatted += "m";
+//        } else if (typeTime.charAt(0) == 's') {
+//            reformatted += "s";
+//        } else if (typeTime.charAt(0) == 'h') {
+//            reformatted += "h";
+//        } else {
+//            reformatted = "0s";
+//        }
+//
+//        // Log.i("new time", reformatted);
+//        return reformatted;
+//    }
 }

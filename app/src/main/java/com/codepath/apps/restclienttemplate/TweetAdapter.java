@@ -36,7 +36,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvUserName.setText(tweet.user.name);
         holder.tvScreenName.setText("@" + tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
-        holder.tvTimeAgo.setText(tweet.timeAgo);
+        holder.tvTimeAgo.setText("Posted " + tweet.timeAgo);
         holder.tvHeartCount.setText(tweet.heartCount);
         holder.tvRetweetCount.setText(tweet.retweetCount);
 
