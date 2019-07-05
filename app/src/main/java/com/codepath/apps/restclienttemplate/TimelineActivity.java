@@ -69,6 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -80,6 +81,7 @@ public class TimelineActivity extends AppCompatActivity {
                 fetchTimelineAsync(0);
             }
         });
+
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -131,9 +133,7 @@ public class TimelineActivity extends AppCompatActivity {
                 // for each entry, deserialize the JSON object
                 for(int i = 0; i < response.length(); i++) {
                     // convert each object to a Tweet model
-
                     // add that Tweet model to our data source
-
                     // notify the adapter that we've added an item
                     try {
                         Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
@@ -166,9 +166,40 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void launchComposeView() {
+//        // get the current user
+//        client.getCurrentUser(new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                Log.d("TwitterClient", response.toString());
+//            }
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+//                Log.d("TwitterClient", response.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                Log.d("TwitterClient", responseString);
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+//                Log.d("TwitterClient", errorResponse.toString());
+//                throwable.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                Log.d("TwitterClient", errorResponse.toString());
+//                throwable.printStackTrace();
+//            }
+//        });
 
         // first parameter is the context, second is the class of the activity to launch
         Intent intent = new Intent(this, ComposeActivity.class);
+
+        // TODO - pass extra of propic url through here!!
         startActivityForResult(intent, REQUEST_CODE); // brings up the second activity
     }
 
