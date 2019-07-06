@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Twitter"
+        app:title="Home"
         app:titleTextColor="@android:color/white"></android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,6 +38,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="0dp"
             android:layout_marginBottom="0dp"
+            android:background="@color/highlightColour"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />

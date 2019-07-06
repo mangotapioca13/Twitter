@@ -21,6 +21,7 @@ public class Tweet {
     public String timeAgo;
     public String heartCount;
     public String retweetCount;
+    public String mediaUrl;
 
     public Tweet() { }
 
@@ -37,8 +38,15 @@ public class Tweet {
         tweet.heartCount = Integer.toString(jsonObject.getInt("favorite_count"));
         tweet.retweetCount = Integer.toString(jsonObject.getInt("retweet_count"));
 
-        // Maybe attempt uploading media if have time
-        // Tweet asdf = Tweet.fromJSON(jsonObject.getJSONObject("entities"));
+        // retrieve media url if there is one
+        if (jsonObject.has("extended_entities")) {
+            if (jsonObject.getJSONObject("entities").getJSONArray("media")
+                    .getJSONObject(0).getString("type").equals("photo")) {
+                tweet.mediaUrl = jsonObject.getJSONObject("extended_entities")
+                        .getJSONArray("media").getJSONObject(0)
+                        .getString("media_url_https");
+            }
+        }
 
         return tweet;
     }
@@ -59,27 +67,6 @@ public class Tweet {
             e.printStackTrace();
         }
 
-        return relativeDate;
-//        return reformatTime(relativeDate);
+        return relativeDate.toLowerCase();
     }
-
-//    // return the relativeDate as "#m" or "#h"
-//    public static String reformatTime(String relativeDate) {
-//        String reformatted = relativeDate.split(" ")[0];
-//        String typeTime = relativeDate.split(" ")[1];
-//
-//        // check whether the time was in minutes or hours
-//        if (typeTime.charAt(0) == 'm') {
-//            reformatted += "m";
-//        } else if (typeTime.charAt(0) == 's') {
-//            reformatted += "s";
-//        } else if (typeTime.charAt(0) == 'h') {
-//            reformatted += "h";
-//        } else {
-//            reformatted = "0s";
-//        }
-//
-//        // Log.i("new time", reformatted);
-//        return reformatted;
-//    }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -58,9 +57,9 @@ public class TimelineActivity extends AppCompatActivity {
         // find the RecyclerView
         rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
 
-        // adds a horizontal divider between each tweet
-        DividerItemDecoration itemDeco = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        rvTweets.addItemDecoration(itemDeco);
+        // adds a horizontal divider between each tweet (NOT NEEDED SINCE WE HAVE CARDVIEW
+        // ividerItemDecoration itemDeco = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        // rvTweets.addItemDecoration(itemDeco);
 
         // instantiate the arraylist (data source)
         tweets = new ArrayList<>();

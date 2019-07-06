@@ -44,6 +44,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 .load(tweet.user.profileImageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(context, 30, 0))
                 .into(holder.ivProfileImage);
+
+        if (tweet.mediaUrl != null) {
+            Glide.with(context)
+                    .load(tweet.mediaUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 20, 0))
+                    .into(holder.ivMedia);
+        }
     }
 
     @Override
@@ -70,7 +77,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     }
 
     // bind the values based on the position of th element
-
     // create ViewHolder class
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -81,6 +87,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvTimeAgo;
         public TextView tvHeartCount;
         public TextView tvRetweetCount;
+        public ImageView ivMedia;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,6 +100,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvTimeAgo = (TextView) itemView.findViewById(R.id.tvTimeAgo);
             tvHeartCount = (TextView) itemView.findViewById(R.id.tvHeartCount);
             tvRetweetCount = (TextView) itemView.findViewById(R.id.tvRetweetCount);
+            ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
         }
     }
 }
