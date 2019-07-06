@@ -37,7 +37,9 @@ public class Tweet {
         tweet.heartCount = Integer.toString(jsonObject.getInt("favorite_count"));
         tweet.retweetCount = Integer.toString(jsonObject.getInt("retweet_count"));
 
-        // Log.i("time", tweet.timeAgo);
+        // Maybe attempt uploading media if have time
+        // Tweet asdf = Tweet.fromJSON(jsonObject.getJSONObject("entities"));
+
         return tweet;
     }
 
