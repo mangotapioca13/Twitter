@@ -47,7 +47,10 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [x] List anything else that you can get done to improve the app functionality!
+  * [x] List the number of likes and retweets a tweet has
+  * [x] Added a cancel menu item to the compose activity
+  * [x] Changed the launcher icon to match the Twitter launcher
 
 ## Video Walkthrough
 
