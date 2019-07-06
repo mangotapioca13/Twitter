@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         if (tweet.mediaUrl != null) {
             Glide.with(context)
                     .load(tweet.mediaUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 20, 0))
+                    .bitmapTransform(new RoundedCornersTransformation(context, 50, 0))
                     .into(holder.ivMedia);
         }
     }
@@ -79,7 +80,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     // bind the values based on the position of th element
     // create ViewHolder class
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView ivProfileImage;
         public TextView tvUserName;
         public TextView tvScreenName;
@@ -101,6 +102,22 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvHeartCount = (TextView) itemView.findViewById(R.id.tvHeartCount);
             tvRetweetCount = (TextView) itemView.findViewById(R.id.tvRetweetCount);
             ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
+
+            // attach a click listener to the entire row view
+            itemView.setOnClickListener((View.OnClickListener)this);
+        }
+
+        // handles the row being clicked
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Tweet tweet = mTweets.get(position);
+
+                // create intent for the new activity
+                Intent intent = new Intent(context, TweetActivity.class);
+                context.startActivity(intent);
+            }
         }
     }
 }
