@@ -49,8 +49,9 @@ The following **additional** features are implemented:
 
 * [x] List anything else that you can get done to improve the app functionality!
   * [x] List the number of likes and retweets a tweet has
-  * [x] Added a cancel menu item to the compose activity
+  * [x] Added a cancel menu item and user's profile image to the compose activity
   * [x] Changed the launcher icon to match the Twitter launcher
+  * [x] Changed profile pictures to be round
 
 ## Video Walkthrough
 
