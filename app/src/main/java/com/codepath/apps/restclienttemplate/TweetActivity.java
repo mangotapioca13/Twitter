@@ -18,8 +18,9 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class TweetActivity extends AppCompatActivity {
 
     private ImageView ivProfileImage;
-    TextView tvUsername;
-    TextView tvScreenname;
+    private TextView tvUsername;
+    private TextView tvScreenname;
+    private TextView tvTweetBody;
     private Tweet tweet;
 
     @Override
@@ -35,6 +36,7 @@ public class TweetActivity extends AppCompatActivity {
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
         tvUsername = (TextView) findViewById(R.id.tvUsername);
         tvScreenname = (TextView) findViewById(R.id.tvScreenname);
+        tvTweetBody = (TextView)  findViewById(R.id.tvTweetBody);
 
         // extract tweet object from intent extras
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
@@ -44,6 +46,10 @@ public class TweetActivity extends AppCompatActivity {
                 .load(tweet.user.profileImageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(this, 35, 0))
                 .into(ivProfileImage);
+
+        tvUsername.setText(tweet.user.name);
+        tvScreenname.setText("@" + tweet.user.screenName);
+        tvTweetBody.setText(tweet.body);
     }
 
     // methods to handle click on the Cancel menu item
