@@ -5,8 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcels;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetActivity extends AppCompatActivity {
+
+    private ImageView ivProfileImage;
+    TextView tvUsername;
+    TextView tvScreenname;
+    private Tweet tweet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +30,20 @@ public class TweetActivity extends AppCompatActivity {
         // find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // fetch views
+        ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        tvUsername = (TextView) findViewById(R.id.tvUsername);
+        tvScreenname = (TextView) findViewById(R.id.tvScreenname);
+
+        // extract tweet object from intent extras
+        tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+
+        // use tweet extra to populate data into views
+        Glide.with(this)
+                .load(tweet.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(this, 35, 0))
+                .into(ivProfileImage);
     }
 
     // methods to handle click on the Cancel menu item
