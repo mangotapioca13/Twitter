@@ -43,17 +43,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvHeartCount.setText(tweet.heartCount);
         holder.tvRetweetCount.setText(tweet.retweetCount);
 
-        Glide.with(context)
-                .load(tweet.user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 30, 0))
-                .into(holder.ivProfileImage);
-
         if (tweet.mediaUrl != null) {
+            holder.ivMedia.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(tweet.mediaUrl)
                     .bitmapTransform(new RoundedCornersTransformation(context, 50, 0))
                     .into(holder.ivMedia);
+        } else {
+            holder.ivMedia.setVisibility(View.GONE);
         }
+
+        Glide.with(context)
+                .load(tweet.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(context, 30, 0))
+                .into(holder.ivProfileImage);
     }
 
     @Override

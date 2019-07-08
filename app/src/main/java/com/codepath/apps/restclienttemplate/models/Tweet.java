@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.text.format.DateUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
@@ -38,15 +39,25 @@ public class Tweet {
         tweet.heartCount = Integer.toString(jsonObject.getInt("favorite_count"));
         tweet.retweetCount = Integer.toString(jsonObject.getInt("retweet_count"));
 
-        // retrieve media url if there is one
-        if (jsonObject.has("extended_entities")) {
-            if (jsonObject.getJSONObject("entities").getJSONArray("media")
-                    .getJSONObject(0).getString("type").equals("photo")) {
-                tweet.mediaUrl = jsonObject.getJSONObject("extended_entities")
-                        .getJSONArray("media").getJSONObject(0)
-                        .getString("media_url_https");
-            }
+        JSONObject obj = jsonObject.getJSONObject("entities");
+        if(obj.has("media")) {
+            JSONArray obj2 = obj.getJSONArray("media");
+            JSONObject obj3 = obj2.getJSONObject(0);
+            tweet.mediaUrl = obj3.getString("media_url_https");
+        } else {
+            tweet.mediaUrl = null;
         }
+
+        // retrieve media url if there is one
+//        if (jsonObject.has("extended_entities")) {
+//            if (jsonObject.getJSONObject("entities").has("media")) {
+//                tweet.mediaUrl = jsonObject.getJSONObject("extended_entities")
+//                        .getJSONArray("media").getJSONObject(0)
+//                        .getString("media_url_https");
+//            }
+//        } else {
+//            tweet.mediaUrl = null;
+//        }
 
         return tweet;
     }
