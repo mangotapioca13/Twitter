@@ -57,10 +57,6 @@ public class TimelineActivity extends AppCompatActivity {
         // find the RecyclerView
         rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
 
-        // adds a horizontal divider between each tweet (NOT NEEDED SINCE WE HAVE CARDVIEW
-        // ividerItemDecoration itemDeco = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        // rvTweets.addItemDecoration(itemDeco);
-
         // instantiate the arraylist (data source)
         tweets = new ArrayList<>();
 
