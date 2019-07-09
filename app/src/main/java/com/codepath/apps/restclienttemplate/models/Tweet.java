@@ -39,25 +39,17 @@ public class Tweet {
         tweet.heartCount = Integer.toString(jsonObject.getInt("favorite_count"));
         tweet.retweetCount = Integer.toString(jsonObject.getInt("retweet_count"));
 
-        JSONObject obj = jsonObject.getJSONObject("entities");
-        if(obj.has("media")) {
-            JSONArray obj2 = obj.getJSONArray("media");
-            JSONObject obj3 = obj2.getJSONObject(0);
-            tweet.mediaUrl = obj3.getString("media_url_https");
+        // go into Twitter API to check for values such as whether
+        // a tweet has been retweeted or liked
+
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        if(entities.has("media")) {
+            JSONArray media = entities.getJSONArray("media");
+            JSONObject firstMedia = media.getJSONObject(0);
+            tweet.mediaUrl = firstMedia.getString("media_url_https");
         } else {
             tweet.mediaUrl = null;
         }
-
-        // retrieve media url if there is one
-//        if (jsonObject.has("extended_entities")) {
-//            if (jsonObject.getJSONObject("entities").has("media")) {
-//                tweet.mediaUrl = jsonObject.getJSONObject("extended_entities")
-//                        .getJSONArray("media").getJSONObject(0)
-//                        .getString("media_url_https");
-//            }
-//        } else {
-//            tweet.mediaUrl = null;
-//        }
 
         return tweet;
     }

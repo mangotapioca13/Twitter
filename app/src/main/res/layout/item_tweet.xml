@@ -124,14 +124,14 @@
 
         <ImageButton
             android:id="@+id/ibReply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="22dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="6dp"
             android:background="@android:color/transparent"
             card_view:layout_constraintStart_toEndOf="@+id/ivProfileImage"
             card_view:layout_constraintTop_toBottomOf="@+id/ivMedia"
-            card_view:srcCompat="@drawable/ic_reply_stroke2" />
+            card_view:srcCompat="@drawable/ufi_comment" />
 
         <ImageView
             android:id="@+id/ivMedia"
